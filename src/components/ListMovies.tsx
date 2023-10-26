@@ -58,9 +58,9 @@ export type ListMovieProps = {
             modules={[Scrollbar]}
             className="mySwiper"
             >
-            {movie?.map((movie: MovieProps) => (
+            {movie?.map((movie: MovieProps, index: number) => (
             <SwiperSlide>
-                <Card key={movie.id} movie={movie} isScale='' />
+                <Card key={index} movie={movie} isScale='' />
             </SwiperSlide>
             ))}
             </Swiper>
