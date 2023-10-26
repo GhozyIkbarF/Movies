@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { fetchDetailMovie } from "@/service";
 import { convertDate, convertTime } from "@/utils";
@@ -51,7 +52,8 @@ export const object = ({ movie }: { movie: Movie }) => {
 export default function detail({ params: { id } }: { params: { id: string } }) {
   const [detail, setDetail] = useState<Movie | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
-  // console.log(detail);
+
+  const router = useRouter();
 
   const getData = async (id: number) => {
     const response = await fetchDetailMovie(id);
@@ -75,7 +77,7 @@ export default function detail({ params: { id } }: { params: { id: string } }) {
   return (
     <React.Fragment>
       <div
-        className="relative w-full min-h-max box-border"
+        className="relative w-full mt-16 min-h-max box-border"
         style={{
           backgroundPosition: "left calc((50vw - 170px) - 370px) top",
           backgroundSize: "cover",
@@ -136,7 +138,7 @@ export default function detail({ params: { id } }: { params: { id: string } }) {
         <div className="flex w-full min-h-max overflow-x-auto gap-2" style={{ scrollbarWidth: "none" }}>
           {detail?.credits?.cast &&
             detail.credits.cast.map((actor, index) => (
-              <div className="rounded-lg" key={index}>
+              <div className="cursor-pointer" key={index} onClick={() => router.push(`/person/${actor.id}`)}>
                 <div className="relative w-[143px] h-[175px] rounded-t-lg">
                   <Image
                     src={`	https://www.themoviedb.org/t/p/w138_and_h175_face${actor.profile_path}`}
