@@ -49,7 +49,7 @@ const object = ({ movie }: { movie: Movie }) => {
   return data;
 };
 
-export default function person({ params: { id } }: { params: { id: string } }) {
+export default function Person({ params: { id } }: { params: { id: string } }) {
   const [detail, setDetail] = useState<Movie | undefined>();
   const router = useRouter();
 

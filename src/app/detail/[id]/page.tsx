@@ -49,7 +49,7 @@ export const object = ({ movie }: { movie: Movie }) => {
   return data;
 };
 
-export default function detail({ params: { id } }: { params: { id: string } }) {
+export default function Detail({ params: { id } }: { params: { id: string } }) {
   const [detail, setDetail] = useState<Movie | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
