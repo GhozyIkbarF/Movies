@@ -11,10 +11,10 @@ type MovieProps = {
     vote_average: number;    
 };
 
-export default function Card({movie, isScale = 'scale-0'}: { movie: MovieProps, isScale: string}) {
+export default function Card({movie, key, isScale = 'scale-0'}: { movie: MovieProps, key: number, isScale: string}) {
   const router = useRouter();
   return (
-    <section className={`w-[150px] rounded-lg overflow-hidden cursor-pointer hover:${isScale}`} onClick={() => router.push(`/detail/${movie.id}`)}>
+    <section className={`w-[150px] rounded-lg overflow-hidden cursor-pointer hover:${isScale}`} key={key} onClick={() => router.push(`/detail/${movie.id}`)}>
         <div className='relative w-[150px] h-[255px]'>
             <Image src={movie?.poster_path ?? ''} fill={true} alt="banner" priority={true} />
         </div>
