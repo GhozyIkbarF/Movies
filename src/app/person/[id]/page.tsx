@@ -115,10 +115,9 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                     modules={[Scrollbar]}
                     className="mySwiper"
                   >
-                    {/* <Role role={detail?.movie_credits.cast ?? []} /> */}
                     {detail?.movie_credits.cast &&
                       detail?.movie_credits.cast.map((movie, index) => (
-                        <div key={movie.id}>
+                        <div key={index}>
                           <SwiperSlide>
                             <Link 
                               href={`/detail/${movie.id}`}
