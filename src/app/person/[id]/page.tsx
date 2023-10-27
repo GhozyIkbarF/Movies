@@ -115,7 +115,7 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                     className="mySwiper"
                   >
                     {detail?.movie_credits.cast &&
-                      detail?.movie_credits.cast.map((movie, index: number) => (
+                      detail?.movie_credits.cast.map((movie, index) => (
                         <div key={index}>
                           <SwiperSlide key={index}>
                             <Link 
