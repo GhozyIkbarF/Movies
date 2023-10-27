@@ -65,7 +65,6 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
   }, [id]);
 
   return (
-    <React.Fragment>
       <div className="relative w-full min-h-max box-border py-28">
         <div className="w-full flex flex-wrap justify-center">
           <div className="w-11/12 flex flex-col justify-center items-center px-5 py-[30px] box-border gap-10 md:flex-row md:px-[45px] md:items-start">
@@ -152,7 +151,6 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-    </React.Fragment>
   );
 }
 

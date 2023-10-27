@@ -29,7 +29,7 @@ type Movie = {
   };
 };
 
-export const object = ({ movie }: { movie: Movie }) => {
+const object = ({ movie }: { movie: Movie }) => {
   const data = {
     id: movie.id,
     backdrop_path: movie.backdrop_path
