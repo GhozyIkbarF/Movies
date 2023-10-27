@@ -32,27 +32,27 @@ type Movie = {
   };
 };
 
-const object = ({ movie }: { movie: Movie }) => {
-  const data = {
-    id: movie.id,
-    name: movie.name,
-    profile_path: movie.profile_path
-      ? `${movie.profile_path}`
-      : "",
-    biography: movie.biography,
-    birthday: movie.birthday,
-    place_of_birth: movie.place_of_birth,
-    gender: movie.gender,
-    popularity: movie.popularity,
-    external_ids: { ...movie.external_ids },
-    movie_credits: { cast: [...movie.movie_credits.cast] },
-  };
-  return data;
-};
-
 export default function Person({ params: { id } }: { params: { id: string } }) {
   const [detail, setDetail] = useState<Movie | undefined>();
   const router = useRouter();
+
+  const object = ({ movie }: { movie: Movie }) => {
+    const data = {
+      id: movie.id,
+      name: movie.name,
+      profile_path: movie.profile_path
+        ? `${movie.profile_path}`
+        : "",
+      biography: movie.biography,
+      birthday: movie.birthday,
+      place_of_birth: movie.place_of_birth,
+      gender: movie.gender,
+      popularity: movie.popularity,
+      external_ids: { ...movie.external_ids },
+      movie_credits: { cast: [...movie.movie_credits.cast] },
+    };
+    return data;
+  };
 
   const getData = async (id: number) => {
     const response = await fetchPerson(id);
