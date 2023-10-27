@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css/scrollbar';
 import { Scrollbar } from 'swiper/modules';
 import "swiper/css";
+import Link from "next/link";
 
 type Movie = {
   id: number;
@@ -117,31 +118,34 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                     {/* <Role role={detail?.movie_credits.cast ?? []} /> */}
                     {detail?.movie_credits.cast &&
                       detail?.movie_credits.cast.map((movie, index) => (
-                        <SwiperSlide>
-                          <div
-                            className="rounded-lg cursor-pointer"
-                            key={index}
-                            onClick={() => router.push(`/detail/${movie.id}`)}
-                          >
-                            <div className="relative w-[143px] h-[175px] rounded-t-lg">
-                              <Image
-                                src={
-                                  movie.poster_path
-                                    ? `https://www.themoviedb.org/t/p/w138_and_h175_face${movie.poster_path}`
-                                    : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
-                                }
-                                fill={true}
-                                sizes="(max-width: 143px)"
-                                alt={`profile ${movie.title}`}
-                                priority={true}
-                                className="rounded-t-lg"
-                              />
-                            </div>
-                            <div className="p-1 w-[143px] text-sm">
-                              <p>{movie.title}</p>
-                            </div>
-                          </div>
-                        </SwiperSlide>
+                        <div key={movie.id}>
+                          <SwiperSlide>
+                            <Link 
+                              href={`/detail/${movie.id}`}
+                              rel="preload"
+                              className="rounded-lg cursor-pointer"
+                              // onClick={() => router.push(`/detail/${movie.id}`)}
+                            >
+                              <div className="relative w-[143px] h-[175px] rounded-t-lg">
+                                <Image
+                                  src={
+                                    movie.poster_path
+                                      ? `https://www.themoviedb.org/t/p/w138_and_h175_face${movie.poster_path}`
+                                      : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
+                                  }
+                                  fill={true}
+                                  sizes="(max-width: 143px)"
+                                  alt={`profile ${movie.title}`}
+                                  priority={true}
+                                  className="rounded-t-lg"
+                                />
+                              </div>
+                              <div className="p-1 w-[143px] text-sm">
+                                <p>{movie.title}</p>
+                              </div>
+                            </Link>
+                          </SwiperSlide>
+                        </div>
                       ))}
                   </Swiper>
                 </div>
