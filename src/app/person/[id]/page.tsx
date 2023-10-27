@@ -156,44 +156,44 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
   );
 }
 
-type Role = {
-  id: number;
-  title: string;
-  poster_path: string;
-}[];
+// type RoleProps = {
+//   id: number;
+//   title: string;
+//   poster_path: string;
+// }[];
 
-const Role = ({ role }: { role: Role }) => {
-  const router = useRouter();
-  return (
-    <React.Fragment>
-      {role &&
-        role.map((movie, index) => (
-          <SwiperSlide key={index}>
-            <div
-              className="rounded-lg cursor-pointer"
-              key={index}
-              onClick={() => router.push(`/detail/${movie.id}`)}
-            >
-              <div className="relative w-[143px] h-[175px] rounded-t-lg">
-                <Image
-                  src={
-                    movie.poster_path
-                      ? `https://www.themoviedb.org/t/p/w138_and_h175_face${movie.poster_path}`
-                      : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
-                  }
-                  fill={true}
-                  sizes="(max-width: 143px)"
-                  alt={`profile ${movie.title}`}
-                  priority={true}
-                  className="rounded-t-lg"
-                />
-              </div>
-              <div className="p-1 w-[143px] text-sm">
-                <p>{movie.title}</p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-    </React.Fragment>
-  );
-};
+// const Role = ({ role }: { role: RoleProps }) => {
+//   const router = useRouter();
+//   return (
+//     <React.Fragment>
+//       {role &&
+//         role.map((movie, index) => (
+//           <SwiperSlide key={index}>
+//             <div
+//               className="rounded-lg cursor-pointer"
+//               key={index}
+//               onClick={() => router.push(`/detail/${movie.id}`)}
+//             >
+//               <div className="relative w-[143px] h-[175px] rounded-t-lg">
+//                 <Image
+//                   src={
+//                     movie.poster_path
+//                       ? `https://www.themoviedb.org/t/p/w138_and_h175_face${movie.poster_path}`
+//                       : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg"
+//                   }
+//                   fill={true}
+//                   sizes="(max-width: 143px)"
+//                   alt={`profile ${movie.title}`}
+//                   priority={true}
+//                   className="rounded-t-lg"
+//                 />
+//               </div>
+//               <div className="p-1 w-[143px] text-sm">
+//                 <p>{movie.title}</p>
+//               </div>
+//             </div>
+//           </SwiperSlide>
+//         ))}
+//     </React.Fragment>
+//   );
+// };
