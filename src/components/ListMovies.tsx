@@ -59,11 +59,15 @@ export type ListMovieProps = {
             className="mySwiper"
             >
             {movie?.map((movie: MovieProps, index: number) => (
-                <>
                     <SwiperSlide>
-                        <Card movie={movie} key={index} isScale='' />
+                        <div key={index}>
+                            <Card 
+                                movie={movie} 
+                                // key={index} 
+                                isScale='' 
+                            />
+                        </div>
                     </SwiperSlide>
-                </>
             ))}
             </Swiper>
         </div>
