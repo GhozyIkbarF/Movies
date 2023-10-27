@@ -140,7 +140,7 @@ export default function Detail({ params: { id } }: { params: { id: string } }) {
               <div className="cursor-pointer" key={index} onClick={() => router.push(`/person/${actor.id}`)}>
                 <div className="relative w-[143px] h-[175px] rounded-t-lg">
                   <Image
-                    src={`	https://www.themoviedb.org/t/p/w138_and_h175_face${actor.profile_path}`}
+                    src={`	https://www.themoviedb.org/t/p/w138_and_h175_face${actor?.profile_path}`}
                     fill={true}
                     sizes="(max-width: 143px)"
                     alt={`profile ${actor.name}`}
