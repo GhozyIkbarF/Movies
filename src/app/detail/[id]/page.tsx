@@ -7,6 +7,7 @@ import { fetchDetailMovie } from "@/service";
 import { convertDate, convertTime } from "@/utils";
 import { BsPlayFill } from "react-icons/bs";
 import ReactPlayer from "react-player/lazy";
+import SkeletonDetailMovie from "@/components/skeleton/SkeletonDetailMovie";
 
 type Movie = {
   id: number;
@@ -83,11 +84,12 @@ export default function Detail({ params: { id } }: { params: { id: string | numb
     getData(Number(id));
   }, [id]);
   
-  if(isLoading) return <div className="min-h-screen w-full flex justify-center items-center">Loading...</div>
+  if(isLoading) return <SkeletonDetailMovie />
+  // if(isLoading) return <div className="min-h-screen w-full flex justify-center items-center">Loading...</div>
   return (
     <React.Fragment>
       <div
-        className="relative w-full mt-16 min-h-max box-border"
+        className="relative w-full mt-24 lg:mt-16 min-h-max box-border"
         style={{
           backgroundPosition: "left calc((50vw - 170px) - 370px) top",
           backgroundSize: "cover",
@@ -112,10 +114,10 @@ export default function Detail({ params: { id } }: { params: { id: string | numb
                 className="rounded-md"
               />
             </div>
-            <div className="w-full flex flex-wrap flex-col flex-start text-lg gap-10">
+            <div className="w-full flex flex-wrap flex-col flex-start text-lg gap-5 lg:gap-10">
               <h1 className="font-bold text-6xl">{detail?.title}</h1>
               <Genres genres={detail?.genres ?? []} />
-              <div className="flex gap-5 flex-col md:flex-row lg:flex-row">
+              <div className="flex lg:gap-5 flex-col md:flex-row lg:flex-row">
                 <p>Release: {convertDate(detail?.release_date ?? "")}</p>
                 <p>Runtime: {convertTime(detail?.runtime ?? 0)}</p>
                 <p>Rating: {detail?.vote_average}</p>
@@ -172,7 +174,7 @@ export default function Detail({ params: { id } }: { params: { id: string | numb
 }
 const Genres = ({ genres }: { genres: { id: number; name: string }[] }) => {
   return (
-    <div className="flex flex-col md:flex-row gap-2">
+    <div className="flex gap-2">
       {genres &&
         genres.map((genre: { id: number; name: string }, index) => (
           <p key={genre.id}>{index !== 0 ? `| ${genre.name}` : genre.name}</p>

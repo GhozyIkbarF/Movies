@@ -4,7 +4,6 @@ import 'swiper/css/scrollbar';
 import { Scrollbar } from 'swiper/modules';
 import Card from './Card';
 import { MovieProps } from './Card';
-// import { object } from '@/app/detail/[id]/page';
 import Link from 'next/link';
 
 export type ListMovieProps = {

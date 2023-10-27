@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { FiSearch } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
+import  { AiOutlineClose } from "react-icons/ai";
 
 export default function Navbar() {
   const [show, setShow] = useState<boolean>(false);
@@ -82,14 +83,14 @@ export default function Navbar() {
             className="flex items-center px-3 py-2 text-gray-20 text-2xl hover:text-white"
             onClick={() => setShow((prev) => !prev)}
           >
-            <FaBars />
+            {show ? <AiOutlineClose />: <FaBars />}
           </button>
         </div>
       </div>
       <Menu
         className={`${
           show ? "max-h-max" : ""
-        } lg:hidden lg:items-center lg:w-auto transition-all transition-max-height duration-2000 ease-in-out max-h-0 overflow-hidden`}
+        } lg:hidden lg:items-center lg:w-auto transition-all transition- duration-2000 ease-in-out max-h-0 overflow-hidden`}
       />
       {search && (
         <div className="absolute flex justify-center -bottom-11 right-0 left-0">
