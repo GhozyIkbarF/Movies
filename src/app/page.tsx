@@ -5,26 +5,6 @@ import { ListMovieProps } from '@/components/ListMovies';
 import { fetchPopularMovie, fetchTopRatedMovie, fetchNowPlaying, fetchUpComing  } from '@/service'
 import ListMovies from '@/components/ListMovies';
 
-
-
-// async function getData() {
-//   try {
-//     const response = await fetchPopularMovie()
-//     const movies = response?.results.map((movie: MovieProps) => {
-//       return {
-//         id: movie.id,
-//         poster_path: `https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`,
-//         title: movie.title,
-//         release_date: movie.release_date,
-//         vote_average: movie.vote_average,
-//       }
-//     })
-//     return movies
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
 export default function Home() {
   const [popularMovies, setPopularMovies] = useState<MovieProps[]>([])
   const [topRatedMovies, setTopRatedMovies] = useState<MovieProps[]>([])
@@ -32,7 +12,6 @@ export default function Home() {
   const [upComingMovies, setUpComingMovies] = useState<MovieProps[]>([])
 
   const setData = ({results}: {results: ListMovieProps}) => {
-    console.log(results);
     const movies = results?.map((movie: MovieProps) => {
       return {
         id: movie.id,
@@ -63,6 +42,7 @@ export default function Home() {
   useEffect(() => {
     getData(1);
   },[])
+
   return (
     <main className="flex px-5 py-28 min-h-screen flex-col items-center justify-between md:px-20 lg:px-32 xl:px-40">
       <ListMovies movie={popularMovies} title='Popular Movies' href='/movie'/>

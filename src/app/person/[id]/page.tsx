@@ -37,7 +37,7 @@ const object = ({ movie }: { movie: Movie }) => {
     id: movie.id,
     name: movie.name,
     profile_path: movie.profile_path
-      ? `	https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.profile_path}`
+      ? `${movie.profile_path}`
       : "",
     biography: movie.biography,
     birthday: movie.birthday,
@@ -56,9 +56,8 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
 
   const getData = async (id: number) => {
     const response = await fetchPerson(id);
-    console.log(response);
     const movie = object({ movie: response });
-    setDetail({ ...movie }); // add empty string as default value for overview property
+    setDetail({ ...movie });
   };
 
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
           <div className="w-11/12 flex flex-col justify-center items-center px-5 py-[30px] box-border gap-10 md:flex-row md:px-[45px] md:items-start">
             <div className="relative flex content-center w-[330px] h-[450px] md:w-[370px] md:h-[500px] overflow-hidden">
               <Image
-                src={detail?.profile_path ?? ""}
+                src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detail?.profile_path}`}
                 fill={true}
                 sizes="(max-width: 400px)"
                 alt={"poster" + detail?.name ?? "poster"}
@@ -116,9 +115,9 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                     className="mySwiper"
                   >
                     {detail?.movie_credits.cast &&
-                      detail?.movie_credits.cast.map((movie, index) => (
+                      detail?.movie_credits.cast.map((movie, index: number) => (
                         <div key={index}>
-                          <SwiperSlide>
+                          <SwiperSlide key={index}>
                             <Link 
                               href={`/detail/${movie.id}`}
                               rel="preload"
@@ -169,7 +168,7 @@ const Role = ({ role }: { role: Role }) => {
     <React.Fragment>
       {role &&
         role.map((movie, index) => (
-          <SwiperSlide>
+          <SwiperSlide key={index}>
             <div
               className="rounded-lg cursor-pointer"
               key={index}

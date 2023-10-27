@@ -11,7 +11,7 @@ import ReactPlayer from "react-player/lazy";
 type Movie = {
   id: number;
   backdrop_path: string;
-  poster_path: string;
+  poster_path: string | undefined;
   title: string;
   release_date: string;
   runtime: number;
@@ -33,10 +33,10 @@ export const object = ({ movie }: { movie: Movie }) => {
   const data = {
     id: movie.id,
     backdrop_path: movie.backdrop_path
-      ? `	https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop_path}`
+      ? `${movie.backdrop_path}`
       : "",
     poster_path: movie.poster_path
-      ? `	https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
+      ? `${movie.poster_path}`
       : "",
     title: movie.title,
     release_date: movie.release_date,
@@ -57,7 +57,6 @@ export default function Detail({ params: { id } }: { params: { id: string } }) {
 
   const getData = async (id: number) => {
     const response = await fetchDetailMovie(id);
-    console.log(response);
     const movie = object({ movie: response });
     setDetail({
       ...movie,
@@ -82,7 +81,7 @@ export default function Detail({ params: { id } }: { params: { id: string } }) {
           backgroundPosition: "left calc((50vw - 170px) - 370px) top",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          backgroundImage: `url("${detail?.backdrop_path}")`,
+          backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${detail?.backdrop_path}")`,
         }}
       >
         <div
@@ -95,7 +94,7 @@ export default function Detail({ params: { id } }: { params: { id: string } }) {
           <div className="w-11/12 flex justify-center items-center px-[40px] py-[30px] box-border gap-10 flex-col md:flex-row">
             <div className="relative grid content-center w-[350px] h-[450px] overflow-hidden">
               <Image
-                src={detail?.poster_path ?? ""}
+                src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detail?.poster_path}`}
                 fill={true}
                 sizes="(max-width: 300px)"
                 alt={detail?.title ?? "poster"}

@@ -29,7 +29,7 @@ export default function Card(
       onClick={() => router.push(`/detail/${movie.id}`)}
     >
         <div className='relative w-[150px] h-[255px]'>
-            <Image src={movie?.poster_path ?? ''} fill={true} alt="banner" priority={true} />
+            <Image src={movie?.poster_path ?? ''} fill={true} sizes='(max-width: 150px)' alt="banner" priority={true} />
         </div>
         <div className='mt-2 mb-3'>
             <h1 className='text-sm font-bold'>{movie?.title ?? ''}</h1>
