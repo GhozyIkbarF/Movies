@@ -12,7 +12,7 @@ import Link from "next/link";
 type Movie = {
   id: number;
   name: string;
-  profile_path: string;
+  profile_path: string | undefined;
   biography: string;
   birthday: string;
   place_of_birth: string;
@@ -41,7 +41,7 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
       id: movie.id,
       name: movie.name,
       profile_path: movie.profile_path
-        ? `${movie.profile_path}`
+        ? movie.profile_path
         : "",
       biography: movie.biography,
       birthday: movie.birthday,
@@ -67,8 +67,8 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
   return (
       <div className="relative w-full min-h-max box-border py-28">
         <div className="w-full flex flex-wrap justify-center">
-          <div className="w-11/12 flex flex-col justify-center items-center px-5 py-[30px] box-border gap-10 md:flex-row md:px-[45px] md:items-start">
-            <div className="relative flex content-center w-[330px] h-[450px] md:w-[370px] md:h-[500px] overflow-hidden">
+          <div className="w-11/12 flex flex-col justify-center items-center px-5 py-[30px] box-border gap-10 lg:flex-row lg:px-[45px] lg:items-start">
+            <div className="relative flex content-center w-[330px] h-[450px] md:w-[370px] md:h-[500px]">
               <Image
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detail?.profile_path}`}
                 fill={true}
@@ -78,7 +78,7 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                 className="rounded-lg"
               />
             </div>
-            <div className="w-full lg:w-4/6 flex justify-start flex-col text-lg gap-6 md:pr-32">
+            <div className="w-full lg:w-4/6 flex justify-start lg:justify-start flex-col text-lg gap-6 lg:pr-20 xl:pr-32">
               <h1 className="font-bold text-3xl md:text-6xl">{detail?.name}</h1>
               <div>
                 <p className="font-bold text-xl mb-2">Biography</p>
@@ -117,11 +117,11 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                       detail?.movie_credits.cast.map((movie, index) => (
                         <div key={index}>
                           <SwiperSlide key={index}>
-                            <Link 
-                              href={`/detail/${movie.id}`}
+                            <div 
+                              // href={`/detail/${movie.id}`}
                               rel="preload"
                               className="rounded-lg cursor-pointer"
-                              // onClick={() => router.push(`/detail/${movie.id}`)}
+                              onClick={() => router.push(`/detail/${movie.id}`)}
                             >
                               <div className="relative w-[143px] h-[175px] rounded-t-lg">
                                 <Image
@@ -140,7 +140,7 @@ export default function Person({ params: { id } }: { params: { id: string } }) {
                               <div className="p-1 w-[143px] text-sm">
                                 <p>{movie.title}</p>
                               </div>
-                            </Link>
+                            </div>
                           </SwiperSlide>
                         </div>
                       ))}

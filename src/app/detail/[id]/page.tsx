@@ -49,30 +49,41 @@ const object = ({ movie }: { movie: Movie }) => {
   return data;
 };
 
-export default function Detail({ params: { id } }: { params: { id: string } }) {
+export default function Detail({ params: { id } }: { params: { id: string | number } }) {
   const [detail, setDetail] = useState<Movie | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
   const getData = async (id: number) => {
-    const response = await fetchDetailMovie(id);
-    const movie = object({ movie: response });
-    setDetail({
-      ...movie,
-      videos: {
-        results: response.videos.results.filter(
-          (video: { type: string }) => video.type === "Trailer"
-        )[0],
-      },
-      credits: { cast: response.credits.cast },
-    });
+    setIsLoading(true)
+    try {
+      const response = await fetchDetailMovie(id);
+      const movie = object({ movie: response });
+      setDetail({
+        ...movie,
+        videos: {
+          results: response.videos.results.filter(
+            (video: { type: string }) => video.type === "Trailer"
+          )[0],
+        },
+        credits: { cast: response.credits.cast },
+      });
+    } catch (error: unknown) {
+      throw new Error(
+        typeof error === "string" ? error : "An unknown error occurred"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
-
+  
   useEffect(() => {
     getData(Number(id));
   }, [id]);
-
+  
+  if(isLoading) return <div className="min-h-screen w-full flex justify-center items-center">Loading...</div>
   return (
     <React.Fragment>
       <div
@@ -94,7 +105,7 @@ export default function Detail({ params: { id } }: { params: { id: string } }) {
           <div className="w-11/12 flex justify-center items-center px-[40px] py-[30px] box-border gap-10 flex-col md:flex-row">
             <div className="relative grid content-center w-[350px] h-[450px] overflow-hidden">
               <Image
-                src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detail?.poster_path}`}
+                src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detail?.poster_path ?? ''}`}
                 fill={true}
                 sizes="(max-width: 300px)"
                 alt={detail?.title ?? "poster"}
@@ -140,7 +151,7 @@ export default function Detail({ params: { id } }: { params: { id: string } }) {
               <div className="cursor-pointer" key={index} onClick={() => router.push(`/person/${actor.id}`)}>
                 <div className="relative w-[143px] h-[175px] rounded-t-lg">
                   <Image
-                    src={`https://www.themoviedb.org/t/p/w138_and_h175_face${actor.profile_path}`}
+                    src={`https://www.themoviedb.org/t/p/w138_and_h175_face${actor?.profile_path}`}
                     fill={true}
                     sizes="(max-width: 143px)"
                     alt={`profile ${actor.name}`}

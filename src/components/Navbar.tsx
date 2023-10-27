@@ -88,8 +88,8 @@ export default function Navbar() {
       </div>
       <Menu
         className={`${
-          show ? "min-h-max" : "h-0"
-        } lg:hidden lg:items-center lg:w-auto transition-all overflow-hidden`}
+          show ? "max-h-max" : ""
+        } lg:hidden lg:items-center lg:w-auto transition-all transition-max-height duration-2000 ease-in-out max-h-0 overflow-hidden`}
       />
       {search && (
         <div className="absolute flex justify-center -bottom-11 right-0 left-0">
