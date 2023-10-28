@@ -14,6 +14,7 @@ type Movie = {
   backdrop_path: string;
   poster_path: string | undefined;
   title: string;
+  tagline: string;
   release_date: string;
   runtime: number;
   vote_average: number;
@@ -40,6 +41,7 @@ const object = ({ movie }: { movie: Movie }) => {
       ? `${movie.poster_path}`
       : "",
     title: movie.title,
+    tagline: movie.tagline,
     release_date: movie.release_date,
     runtime: movie.runtime,
     vote_average: movie.vote_average,
@@ -104,7 +106,7 @@ export default function Detail({ params: { id } }: { params: { id: string | numb
               "linear-gradient(to right, rgba(31.5, 31.5, 31.5, 1) calc((50vw - 170px) - 340px), rgba(31.5, 31.5, 31.5, 0.84) 50%, rgba(31.5, 31.5, 31.5, 0.84) 100%)",
           }}
         >
-          <div className="w-11/12 flex justify-center items-center px-[40px] py-[30px] box-border gap-10 flex-col md:flex-row">
+          <div className="w-11/12 flex justify-center items-center px-[40px] py-[30px] box-border gap-10 lg:gap-8 flex-col md:flex-row">
             <div className="relative grid content-center w-[350px] h-[450px] overflow-hidden">
               <Image
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detail?.poster_path ?? ''}`}
@@ -122,10 +124,11 @@ export default function Detail({ params: { id } }: { params: { id: string | numb
                 <p>Runtime: {convertTime(detail?.runtime ?? 0)}</p>
                 <p>Rating: {detail?.vote_average}</p>
               </div>
+              <p className="italic tracking-wider">{detail?.tagline}</p>
               <p>{detail?.overview}</p>
               <div>
                 <button
-                  className="flex gap-2 items-center bg-amber-500 mt-8 py-2 px-4 hover:scale-105 transition-all"
+                  className="flex gap-2 items-center bg-amber-500 mt-5 lg:mt-0 py-2 px-4 hover:scale-105 transition-all"
                   onClick={() => setShowModal(true)}
                 >
                   <span className="text-2xl">
@@ -200,19 +203,29 @@ const Modal = ({
       className={`fixed top-0 w-full min-h-screen flex flex-col justify-center items-center bg-black bg-opacity-70 ${
         isModal ? "block z-50" : "hidden"
       }`}
-      onClick={() => handleToggleModal(false)}
     >
       <div className="w-full flex justify-center items-center">
-        <div className="w-full h-96 bg-white md:h-[550px] md:w-3/4">
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${url}`}
-            controls={true}
-            loop={false}
-            playing={isModal}
-            width="100%"
-            height="100%"
-            // onPause={}
-          />
+        <div className="w-full bg-black md:w-3/4">
+        <div className="w-full flex justify-between items-center h-16 px-5 box-border">
+          <h1 className="font-bold text-base lg:text-xl">Play Trailer</h1>
+          <button
+            className="text-3xl"
+            onClick={() => handleToggleModal(false)}
+          >
+            &times;
+          </button>
+        </div>
+        <div className="w-full h-96 bg-white md:h-[550px]">
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${url}`}
+              controls={true}
+              loop={false}
+              playing={isModal}
+              width="100.02%"
+              height="100%"
+              // onPause={}
+            />
+        </div>
         </div>
       </div>
     </div>
