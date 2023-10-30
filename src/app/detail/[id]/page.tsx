@@ -71,7 +71,7 @@ export default function Detail({ params: { id } }: { params: { id: string | numb
             (video: { type: string }) => video.type === "Trailer"
           )[0],
         },
-        credits: { cast: response.credits.cast },
+        credits: { cast: response.credits?.cast ?? [] },
       });
     } catch (error: unknown) {
       throw new Error(

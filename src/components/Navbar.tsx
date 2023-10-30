@@ -5,12 +5,35 @@ import { useMediaQuery } from "react-responsive";
 import { FiSearch } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import  { AiOutlineClose } from "react-icons/ai";
+import { searchMovie } from "@/service";
+import { useDebounce } from 'use-debounce';
+import { usePathname } from 'next/navigation'
+
+type searchMovieProps = {
+  page: number;
+  query: string;
+}
 
 export default function Navbar() {
   const [show, setShow] = useState<boolean>(false);
   const [search, setSearch] = useState<boolean>(false);
+  const [text, setText] = useState<string>('');
   const [isScrollingUp, setIsScrollingUp] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(0);
+
+  const [value] = useDebounce(text, 1000);
+
+  const searchMovies = async () => {
+    const response = await searchMovie(value);
+    
+  }
+
+  useEffect(() => {
+    if (value) {
+      searchMovies();
+    }
+  }, [value])
+  
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -135,6 +158,9 @@ const Menu = ({ className }: { className: string }) => {
 };
 
 const NavLink = () => {
+  const pathname = usePathname();
+  console.log(pathname);
+  
   const listLink = [
     {
       href: '/movie',
@@ -160,7 +186,7 @@ const NavLink = () => {
             href={link.href}
             key={index}
             // onClick={() => }
-            className={`block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white ${index == listLink.length -1 ? 'mr-0' : 'mr-5'} `}
+            className={`block mt-4 lg:inline-block lg:mt-0 hover:text-teal-200 ${pathname == link.href ? 'text-teal-200': 'text-white'} ${index == listLink.length -1 ? 'mr-0' : 'mr-5'} `}
           >
             {link.title}
           </Link>
